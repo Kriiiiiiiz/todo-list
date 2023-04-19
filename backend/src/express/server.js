@@ -3,6 +3,7 @@ const express = require('express');
 const routerApi = require('../routers/api.js');
 const path = require('path');
 const session = require('express-session');
+const controller = require('../controller/controllers.js')
 
 exports.launch = () => {
     const app = express();
@@ -31,4 +32,6 @@ exports.launch = () => {
         .sendFile(path.join(__dirname,'../../../frontend/build/index.html'));
     })
 
+    app.post('/login', controller.login)
+    app.post('/register', controller.register)
 }

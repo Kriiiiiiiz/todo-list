@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 const express = require('express');
 const router = express.Router();
-const path = require('path');
+const controllers = require(`../controller/controllers`);
 
 // router.get('/:saludo', (req, res) => {
 //     res.status(200)
@@ -42,22 +42,6 @@ router.post('/newtask', (req, res) => {
     res.status(201).send({id:uuid, title:title, desc:desc})
 })
 
-router.get('/task/:uuid', (req, res) => {
-    const uuid = req.params.uuid;
-
-    if (!uuid) {
-        res.status(400).send({message: 'Que intentas Jose ?'})
-        return;
-    }
-
-    //Recibir tarea, comprobar dueño
-
-    if (req.session.user !== user) {
-        req.status(403).send({message: 'Esta tarea no te pertenece'})
-        return;
-    }
-
-    res.send({id: task.uuid, title: task.title, desc: task.desc, status: task.status})
-})
+router.get('/task/:uuid', controllers.getTask) //Recibir una tarea especifica a traves de su UUID.
 
 module.exports = router;

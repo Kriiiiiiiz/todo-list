@@ -1,4 +1,3 @@
-const dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
 
 
@@ -12,8 +11,8 @@ exports.connect = function connect(){
     .catch(err => console.log(err));
 
     const userSchema = new mongoose.Schema({
-        username: { type: string, required: true, unique: true },
-        password: { type: strung, required: true }
+        username: { type: String, required: true, unique: true },
+        password: { type: String, required: true }
     })
 
     mongoose.model('user', userSchema)
