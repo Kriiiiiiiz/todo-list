@@ -1,24 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Index from "./components/Index";
+import Register from "./components/Register";
+import {useState, useEffect} from 'react';
+import axios from 'axios';
+import UserContext from "./UserContext";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
+
+  const [user, setUser] = useState(undefined);
+
+  useEffect(() => {
+    axios.get('/api/user', {withCredentials:true})
+      .then(response => {
+        setUser(response.data.user);
+      }).catch(() => {
+        setUser(false);
+      })
+  }, []);
+
+  function logout() {
+    axios.post('/logout', {}, {withCredentials:true})
+      .then(() => setUser(false));
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserContext.Provider value={{user, setUser}}>
+        <Routes>
+        <Route exact path="/" element={<Index />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/home" element={<Home />} />
+        </Route>
+      </Routes>
+    </UserContext.Provider>
   );
 }
 

@@ -20,28 +20,13 @@ router.all('*', (req, res, next) => {
     next();
 })
 
-router.post('/newtask', (req, res) => {
-    let notexists = true;
-    let uuid = uuidv4() //Falta verificar que no existe en bd
-
-    const title = req.body.title;
-    const desc = req.body.desc;
-
-    if (!title || !desc) {
-        res.status(400).send({message: 'Falta título o descripción'})
-        return;
-    }
-
-    if (title.lenght < 4 || desc.lenght < 4) {
-        res.status(400).send({message: 'Título o descripción demasiado cortos'})
-        return;
-    }
-
-    //Guardar en bd
-
-    res.status(201).send({id:uuid, title:title, desc:desc})
-})
-
+router.get('/user', controllers.getUser) //Añadir una tarea nueva.
+router.post('/addtask', controllers.addTask) //Añadir una tarea nueva.
 router.get('/task/:uuid', controllers.getTask) //Recibir una tarea especifica a traves de su UUID.
-
+router.get('/tasks', controllers.getTasks) //Permite seleccionar todas las tareas o filtrarlas por su estado. 
+router.put('/task/:uuid', controllers.modifyTask) //Modifica una tarea con los datos proporcionados.
+router.delete('/task/:uuid', controllers.removeTask) //Elimina una tarea.
+router.patch('/task/archive/:uuid', controllers.archiveTask) //Pasa una tarea a completada.
+router.patch('/task/complete/:uuid', controllers.completeTask) //Pasa una tarea a completada.
+// 
 module.exports = router;
