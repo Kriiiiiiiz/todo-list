@@ -7,7 +7,7 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 import UserContext from "./UserContext";
 import ProtectedRoute from "./ProtectedRoute";
-
+import './statics/css/main.css';
 function App() {
 
   const [user, setUser] = useState(undefined);

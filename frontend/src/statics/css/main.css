@@ -1,0 +1,45 @@
+:root {
+    --primary-color: #0A4D68;
+    --second-color: #088395;
+    --third-color: #05BFDB;
+    --fourth-color: #00FFCA;
+    --text-primary-color: #fff;
+    --text-second-color: #505050;
+}
+
+body {
+    background-color: var(--primary-color);
+}
+
+.box-shadow {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.br-12 {
+    border-radius: 12px;
+}
+
+.br-6 {
+    border-radius: 6px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.btn {
+    background-color: var(--fourth-color);
+    border-radius: 6px;
+    color: var(--text-primary-color);
+    font-weight: 400;
+}
+
+.btn:hover {
+    background-color: var(--second-color);
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
