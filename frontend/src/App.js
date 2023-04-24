@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Index from "./components/Index";
@@ -8,6 +8,7 @@ import axios from 'axios';
 import UserContext from "./UserContext";
 import ProtectedRoute from "./ProtectedRoute";
 import './statics/css/main.css';
+import Task from "./components/Task";
 function App() {
 
   const [user, setUser] = useState(undefined);
@@ -21,19 +22,15 @@ function App() {
       })
   }, []);
 
-  function logout() {
-    axios.post('/logout', {}, {withCredentials:true})
-      .then(() => setUser(false));
-  }
-
   return (
     <UserContext.Provider value={{user, setUser}}>
         <Routes>
-        <Route exact path="/" element={<Index />} />
+        <Route exact path="/" element={<Navigate to={`/home`} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/home" element={<Home />} />
+          <Route path="/task/:uuid" element={<Task />} />
         </Route>
       </Routes>
     </UserContext.Provider>

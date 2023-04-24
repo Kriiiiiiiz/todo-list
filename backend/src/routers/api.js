@@ -20,10 +20,11 @@ router.all('*', (req, res, next) => {
     next();
 })
 
-router.get('/user', controllers.getUser) //Añadir una tarea nueva.
+router.get('/user', controllers.getUser) //Recive la informacion del usuario
 router.post('/addtask', controllers.addTask) //Añadir una tarea nueva.
 router.get('/task/:uuid', controllers.getTask) //Recibir una tarea especifica a traves de su UUID.
 router.get('/tasks', controllers.getTasks) //Permite seleccionar todas las tareas o filtrarlas por su estado. 
+router.get('/tasks/:status', controllers.getTasksByStatus) //Busca todas las tareas de un usuario que tengan un mismo estado.
 router.put('/task/:uuid', controllers.modifyTask) //Modifica una tarea con los datos proporcionados.
 router.delete('/task/:uuid', controllers.removeTask) //Elimina una tarea.
 router.patch('/task/archive/:uuid', controllers.archiveTask) //Pasa una tarea a completada.

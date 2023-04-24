@@ -11,8 +11,8 @@ const Users = mongoose.model('users',
 const Tasks = mongoose.model('tasks',
 
     new mongoose.Schema({
-        taskName: String,
-        taskDesc: String,
+        title: String,
+        desc: String,
         status: String,
         owner: String,
         id: { type: String, unique: true },

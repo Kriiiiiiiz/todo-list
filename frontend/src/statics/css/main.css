@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
 :root {
     --primary-color: #0A4D68;
     --second-color: #088395;
@@ -9,6 +11,38 @@
 
 body {
     background-color: var(--primary-color);
+    color: var(--text-primary-color);
+    font-family: 'Fredoka One', cursive;
+    overflow-x: hidden;
+}
+
+.box {
+    margin-left: 50vw;
+    transform: translate(-50%);
+    background-color: var(--second-color);
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.box .title {
+    font-size: 30px;
+    font-weight: 700;
+    border-bottom-width: 3px solid #000 !important;
+    padding: 5px 30px;
+}
+
+.box .body {
+    font-size: 17px;
+    font-weight: 500;
+    padding: 5px 40px;
+}
+
+.box .footer {
+    border-top: solid 1px #666666;
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 15px;
+    font-weight: 500;
 }
 
 .box-shadow {
@@ -32,14 +66,97 @@ body {
     border-radius: 6px;
     color: var(--text-primary-color);
     font-weight: 400;
+    padding: 7px 10px;
+    animation: all ease 2s;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+}
+
+.btn.active {
+    background-color: var(--primary-color);
+}
+
+.btn.active:hover {
+    background-color: var(--third-color);
 }
 
 .btn:hover {
-    background-color: var(--second-color);
+    background-color: var(--third-color);
+}
+
+a {
+    text-decoration: none;
 }
 
 .row {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+.fs-20 {
+    font-size: 20px;
+}
+
+.fs-15 {
+    font-size: 15px;
+}
+
+.fw-400 {
+    font-weight: 400;
+}
+
+/*navbar*/
+
+.navbar {
+    background-color: var(--second-color);
+    padding: 10px;
+    height: 30px;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar .container div {
+    width: 45%;
+}
+
+.navbar .container div:not(:first-child) {
+    text-align: right;
+    justify-content: right;
+    display: flex;
+}
+
+.badget {
+    padding: 7px 14px;
+    border-radius: 6px;
+    color: var(--text-primary-color);
+    margin-right: 5px;
+}
+
+.hover-info .hovered-info {
+    position: absolute;
+    margin-top: 10px;
+    background-color: var(--second-color);
+    opacity: 0;
+    transition: all 0.5s;
+    padding: 10px;
+    border-radius: 0.3em;
+    visibility: 0;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 50;
+}
+
+.hover-info:hover .hovered-info {
+    margin-top: -10px;
+    opacity: 1;
+    visibility: 1;
+    margin-left: -50px;
+    display: block;
+    transition: all 0.5s;
+    width: 75px;
 }

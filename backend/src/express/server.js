@@ -25,11 +25,6 @@ exports.launch = () => {
 
   app.use(bodyparser.json());
 
-  app.all(`*`, (req, res, next) => {
-    console.log(`Conexion`);
-    next();
-  });
-
   app.use("/api", routerApi);
 
   app.use(express.static(path.join(__dirname, "../../../frontend/build/")));
@@ -43,5 +38,6 @@ exports.launch = () => {
   );
 
   app.post("/login", controller.login);
+  app.post("/logout", controller.logout);
   app.post("/register", controller.register);
 };

@@ -1,7 +1,8 @@
 const { Users, Tasks } = require("../models/models");
+const {v4: uuidv4} = require('uuid');
 const bcrypt = require("bcrypt");
 
-const statuses = [`pennding`, `complete`, `archived`];
+const statuses = [`pennding`, `completed`, `archived`];
 
 exports.getUser = async (req , res) => {
 
@@ -32,6 +33,11 @@ exports.login = async (req, res) => {
   } catch (err) {
     res.redirect("/login?err=1");
   }
+};
+
+exports.logout = async (req, res) => {
+  req.session.user = undefined;
+  res.send();
 };
 
 exports.register = async (req, res) => {
@@ -87,9 +93,11 @@ exports.addTask = async (req, res) => {
     id: uuid,
     title: title,
     desc: desc,
-    owner: owner,
+    owner: username,
     status: `pennding`,
   });
+
+  task.save();
 
   res.status(201).send(task);
 };
@@ -116,30 +124,19 @@ exports.getTask = async (req, res) => {
 };
 
 exports.getTasks = async (req, res) => {
-  const uuid = req.params.uuid;
   const username = req.session.user;
-  let status = req.query.status;
+  let tasks = await Tasks.find({ owner: username });
 
-  const task = await Tasks.findOne({ owner: uuid });
-
-  if (!task) {
-    res.status(404).send({ error: `Esta tarea no existe` });
-    return;
+  if(!tasks){
+    tasks = [];
   }
 
-  if (task.owner !== username) {
-    res
-      .status(403)
-      .send({ error: `No tienes permisos para acceder a esta tarea.` });
-    return;
-  }
-
-  res.send({ task: taks });
+  res.send({ tasks: tasks });
 };
 
 exports.getTasksByStatus = async (req, res) => {
   const username = req.session.user;
-  const status = req.query.status;
+  const status = req.params.status;
 
   if (!status) {
     res.status(400).send({ error: `No se ha especificado un estado.` });
@@ -151,17 +148,17 @@ exports.getTasksByStatus = async (req, res) => {
     return;
   }
 
-  const task = await Tasks.findOne({
+  const tasks = await Tasks.find({
     owner: username,
     status: status,
   });
 
-  if (!task) {
+  if (!tasks) {
     res.status(200).send({ tasks: [] });
     return;
   }
 
-  res.send({ tasks: [task] });
+  res.send({ tasks: tasks });
 };
 
 exports.modifyTask = async (req, res) => {
@@ -244,12 +241,12 @@ exports.removeTask = async (req, res) => {
   const task = await Tasks.findOne({id: uuid});
 
   if(!task){
-    res.send(404).send({error: `La tarea no existe`});
+    res.status(404).send({error: `La tarea no existe`});
     return;
   }
 
   if(task.owner !== username){
-    res.send(404).send({error: `Esta tarea te pertenece.`});
+    res.status(404).send({error: `Esta tarea te pertenece.`});
     return;
   }
 

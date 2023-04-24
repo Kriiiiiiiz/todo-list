@@ -3,14 +3,14 @@
     padding: 0;
 }
 
-.box {
+.auth-box {
     margin-top: 20vh;
     margin-left: 50vw;
     transform: translate(-50%);
     background-color: var(--second-color);
 }
 
-.box .content {
+.auth-box .content {
     padding: 50px;
 }
 
@@ -21,11 +21,18 @@ input[type='text'], input[type='password'] {
     color: var(--text-second-color)
 }
 
-input[type='submit'] {
-    width: 100%;
-    padding: 10px;
+button[type='submit'] {
+    width: 100% !important;
+    padding: 10px !important;
+    border-radius: 6px !important;
+    font-family: 'Fredoka One', cursive !important;
+    background-color: var(--fourth-color);
     border-radius: 6px;
-    color: var(--text-second-color)
+    color: var(--text-primary-color);
+    font-weight: 400;
+    padding: 7px 10px;
+    animation: all ease 2s;
+    border: none;
 }
 
 input:not(:first-child){
